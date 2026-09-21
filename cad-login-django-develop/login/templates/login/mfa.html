@@ -1,0 +1,19 @@
+<!-- Segunda etapa: confirma que o usuário também possui acesso ao e-mail. -->
+<h2>Validação 2FA - Etapa 2</h2>
+<p>Um código de 6 dígitos foi enviado para o seu e-mail. Digite-o abaixo:</p>
+
+<!-- Exibe mensagens de código inválido ou expirado. -->
+{% if messages %}
+  {% for message in messages %}
+    <p style="color: red;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<!-- O código é enviado à view MFA para validação e uso único. -->
+<form method="post">
+  {% csrf_token %}
+  <label for="code">Código de 6 dígitos:</label>
+  <input type="text" name="code" maxlength="6" required placeholder="000000">
+  <br>
+  <button type="submit">Validar e Entrar</button>
+</form>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+</head>
+<body>
+    <!-- Título e formulário principal de criação da conta. -->
+    <h2>Criar Conta</h2>
+
+    <!-- Exibe mensagens de validação e confirmação enviadas pelas views. -->
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <!-- POST envia os dados para a view de cadastro; CSRF protege a requisição. -->
+    <form method="POST" action="{% url 'cadastro' %}">
+        {% csrf_token %}
+        
+        <!-- O nome informado é armazenado no campo first_name do usuário. -->
+        <label>Usuário:</label><br>
+        <input type="text" name="usuario" required><br><br>
+
+        <!-- O e-mail identifica a conta e recebe o link de ativação. -->
+        <label>E-mail:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <!-- A view compara esta senha com a confirmação e verifica seu tamanho. -->
+        <label>Senha:</label><br>
+        <input type="password" name="senha" required><br><br>
+
+        <label>Confirmar Senha:</label><br>
+        <input type="password" name="confirmar_senha" required><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <!-- Atalho para usuários que já possuem uma conta. -->
+    <p>Já possui conta? <a href="{% url 'login' %}">Entrar</a></p>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load auth_extras %}
+
+<nav>
+    <!-- Menu Principal Comum a Todos -->
+    <a href="{% url 'painel_redirect' %}">Início</a>
+    <a href="#">Meu Perfil</a>
+
+    <!-- Menu Exclusivo da Diretoria -->
+    {% if request.user|has_group:"diretoria" %}
+    <div class="menu-section">
+        <h3>Menu da Diretoria</h3>
+        <a href="{% url 'view_diretoria' %}">Painel Diretoria</a>
+        <a href="#">Balanço Anual</a>
+    </div>
+    {% endif %}
+
+    <!-- Menu Exclusivo da Gerência Geral -->
+    {% if request.user|has_group:"gerencia_geral" %}
+    <div class="menu-section">
+        <h3>Menu da  Gerência Geral</h3>
+        <a href="{% url 'view_gerencia_geral' %}">Painel Gerência Geral</a>
+    </div>
+    {% endif %}
+
+    <!-- Menu Exclusivo da Gerência -->
+    {% if request.user|has_group:"gerencia" %}
+    <div class="menu-section">
+        <h3>Menu da Gerência</h3>
+        <a href="{% url 'view_gerencia' %}">Painel Gerência</a>
+    </div>
+    {% endif %}
+
+    <!-- Menu Exclusivo da supervisao -->
+    {% if request.user|has_group:"supervisao" %}
+    <div class="menu-section">
+        <h3>Menu da Supervisão</h3>
+        <a href="{% url 'view_supervisao' %}">Painel Supervisão</a>
+    </div>
+    {% endif %}
+
+    <!-- Menu Exclusivo do Atendente  -->
+    {% if request.user|has_group:"atendente" %}
+    <div class="menu-section">
+        <h3>Menu do Atendente</h3>
+        <a href="{% url 'view_atendente' %}">Painel Atendente</a>
+    </div>
+    {% endif %}
+
+    <!-- Menu Exclusivo do caixa  -->
+    {% if request.user|has_group:"caixa" %}
+    <div class="menu-section">
+        <h3>Menu do Caixa</h3>
+        <a href="{% url 'view_caixa' %}">Painel Caixa</a>
+    </div>
+    {% endif %}
+
+    <!-- Menu Compartilhado (Visível para Atendentes E Caixas) -->
+    {% if request.user|has_group:"atendente" or request.user|has_group:"caixa" %}
+    <div class="menu-section">
+        <a href="#">Abrir Chamado</a>
+    </div>
+    {% endif %}
+</nav>

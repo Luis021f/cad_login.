@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <!-- Primeira etapa: coleta e validação do e-mail e da senha. -->
+    <h2>Login</h2>
+
+    <!-- Mostra erros de autenticação ou aviso de conta não ativada. -->
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <!-- POST envia as credenciais para iniciar o fluxo de autenticação. -->
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        
+        <!-- O e-mail é convertido para username internamente pela view. -->
+        <label>Email:</label><br>
+        <input type="text" name="email" required><br><br>
+
+        <label>Senha:</label><br>
+        <input type="password" name="senha" required><br><br>
+
+        <button type="submit">Avançar</button>
+    </form>
+
+    <!-- Atalho para novos usuários criarem uma conta. -->
+    <p>Não tem conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
+</body>
+</html>
